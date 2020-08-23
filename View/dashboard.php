@@ -480,5 +480,8 @@
 <script src="../src/plugins/chart.js/Chart.min.js"></script>
 <script src="../src/dist/js/demo.js"></script>
 <script src="../src/dist/js/pages/dashboard3.js"></script>
+
+
+
 </body>
 </html>

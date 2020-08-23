@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -269,7 +271,7 @@
         <div class="row">
           <!-- Left col -->
           <section class="col-lg-12 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
+         
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
@@ -301,8 +303,17 @@
               </div><!-- /.card-body -->
             </div>
             <div id="menu">
+              <!--formato de Fecha-->
+              <!--2020-07-01/2020-07-01-->
+            
               <p><a id="fecha1" href="../Controller/obtener.php?cod=1">Ultima Semana</a></p>
-              <p><a id="fecha2" href="../Controller/obtener.php?cod=2">Desde Siempre</a></p>
+              <p><a id="fecha2" href="../Controller/obtener.php?cod=<?php echo $_COOKIE['profile_viewer_uid']; ?>">Graficar</a></p>
+
+
+              <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+
+              
+              
             </div>
             <div id="detalles">Seleccione una Fecha</div>
             <!-- /.card -->
@@ -371,5 +382,11 @@
 
 <!--Funcion para Meet-->
 <script src="../Controller/fn_meet.js"></script>
+
+
+<script>
+  document.cookie="profile_viewer_uid=2020-07-01a2020-07-01";
+</script>
+
 </body>
 </html>

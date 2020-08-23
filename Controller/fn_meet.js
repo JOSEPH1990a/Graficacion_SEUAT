@@ -51,6 +51,8 @@ function procesarEventos()
   
 }
 function mostrarDatos(){
+ 
+  
   var salesChartCanvas = document.getElementById('revenue-chart-canvas').getContext('2d')
   var chartUsuarios = [];
   var charDatos = [];
@@ -60,6 +62,7 @@ function mostrarDatos(){
   for(var i=0;i<horas.length;i++){
     charDatos.push(horas[i]);
   }
+  /*
   var salesChartData = {
     labels: chartUsuarios,
     datasets: [
@@ -108,6 +111,124 @@ function mostrarDatos(){
     data: salesChartData,
     options: salesChartOptions
   })
+  */
+  var salesChartData = {
+    labels:chartUsuarios,
+    datasets: [
+      {
+        label:'Horas',
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 0.5,
+        data: charDatos,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.4)',
+          'rgba(54, 162, 235, 0.4)',
+          'rgba(255, 206, 86, 0.4)',
+          'rgba(75, 192, 192, 0.4)',
+          'rgba(153, 102, 255, 0.4)',
+          'rgba(255, 159, 64, 0.4)',
+          'rgba(255, 99, 132, 0.4)',
+          'rgba(54, 162, 235, 0.4)',
+          'rgba(255, 206, 86, 0.4)',
+          'rgba(75, 192, 192, 0.4)',
+          'rgba(153, 102, 255, 0.4)',
+          'rgba(255, 159, 64, 0.4)',
+          'rgba(255, 99, 132, 0.4)',
+          'rgba(54, 162, 235, 0.4)',
+          'rgba(255, 206, 86, 0.4)',
+          'rgba(75, 192, 192, 0.4)',
+          'rgba(153, 102, 255, 0.4)',
+          'rgba(255, 159, 64, 0.4)',
+          'rgba(255, 99, 132, 0.4)',
+          'rgba(54, 162, 235, 0.4)',
+          'rgba(255, 206, 86, 0.4)',
+          'rgba(75, 192, 192, 0.4)',
+          'rgba(153, 102, 255, 0.4)',
+          'rgba(255, 159, 64, 0.4)'
+        ],
+      }
+    ]
+  }
+  var salesChartOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    events: [],
+    legend: {
+      display: false
+    },
+    scales: {
+      xAxes:[{
+        gridLines: {
+          display: false,
+          stacked: false
+        }
+      }],
+      yAxes: [{
+        gridLines: {
+          display: true,
+        }
+      }]
+    },
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top:0,
+        bottom:0
+      }
+    },
+    animation: {
+      onComplete: function(){
+        var chartInstance = this.chart,
+        ctx = chartInstance.ctx;
+        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaulFontStyle,Chart.defaults.global.defaultFontFamily);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        this.data.datasets.forEach(function(dataset, i){
+          var meta = chartInstance.controller.getDatasetMeta(i);
+          meta.data.forEach(function(bar, index){
+            if(dataset.data[index] >0){
+              var data = dataset.data[index];
+              ctx.fillText(data, bar._model.x, bar._model.y);
+            }
+          });
+        });
+      }
+    }
+  }
+  var salesChart = new Chart(salesChartCanvas, {
+    type: 'bar',
+    data: salesChartData,
+    options: salesChartOptions
+  })
+
+
+
 }
 function mostrarDatosTabla(){
   google.charts.load('current', {'packages':['table']});
