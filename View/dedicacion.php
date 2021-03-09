@@ -1,23 +1,41 @@
+<?php
+    $url = "https://www.tuxtla.cuatri.seuatvirtual.mx/API/dedicacion-curso/category-list.php";
+    $json = file_get_contents($url);
+    $array = json_decode($json);
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Graficacion SEUAT | Moodle</title>
 
-  <title>Graficacion SEUAT | Dashboard</title>
-
-  <!-- Font Awesome Icons -->
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="../src/plugins/fontawesome-free/css/all.min.css">
-  <!-- IonIcons -->
-  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="../src/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../src/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="../src/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../src/dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../src/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../src/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="../src/plugins/summernote/summernote-bs4.min.css">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
+
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -159,7 +177,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <!--<li class="nav-item has-treeview">
+        <!--
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
@@ -181,8 +200,8 @@
                 </a>
               </li>
             </ul>
-          </li>-->
-          <!--<li class="nav-item has-treeview">
+          </li>
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
@@ -214,6 +233,7 @@
               </p>
             </a>
           </li>
+          
           <li class="nav-header">RECURSOS</li>
           <li class="nav-item">
             <a href="calendario.php" class="nav-link">
@@ -246,14 +266,16 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h1 class="m-0 text-dark">Dedicacion al Curso</h1>
           </div><!-- /.col -->
+          <!--
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Inicio</a></li>
               <li class="breadcrumb-item active">Salir</li>
             </ol>
-          </div><!-- /.col -->
+          </div>-->
+          <!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -261,236 +283,167 @@
 
     <!-- Main content -->
     <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Uso de la plataforma</h3>
-                  <a href="javascript:void(0);">Ver Reporte</a>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-1">
                 </div>
-              </div>
-              <div class="card-body">
-                <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">820</span>
-                    <span>Docentes Activos</span>
-                  </p>
-                  <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 12.5%
-                    </span>
-                    <span class="text-muted">Desde la Semana Pasada</span>
-                  </p>
+                <div class="col-lg-10">
+                    <select class="custom-select rounded-0" id="exampleSelectRounded0">
+                        <option>Seleccione un Nivel</option>
+                        <?php foreach($array as $categorias){ ?> <option><?php echo($categorias->id_course); ?></option> <?php } ?>
+                  </select>
                 </div>
-                <!-- /.d-flex -->
-
-                <div class="position-relative mb-4">
-                  <canvas id="visitors-chart" height="200"></canvas>
+                <div class="col-lg-1">
                 </div>
-
-                <div class="d-flex flex-row justify-content-end">
-                  <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> Esta Semana
-                  </span>
-
-                  <span>
-                    <i class="fas fa-square text-gray"></i> Semana Pasada
-                  </span>
+            </div><br>
+            <div class="row">
+                <div class="col-lg-1">
                 </div>
-              </div>
+                <div class="col-lg-10">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <h3 class="card-title">Lista de Docentes</h3>
+                            <div class="card-tools">
+                                <a href="#" class="btn btn-tool btn-sm">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                                <a href="#" class="btn btn-tool btn-sm">
+                                    <i class="fas fa-bars"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-striped table-valign-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre del Docente</th>
+                                        <th>Meet</th>
+                                        <th>Moodle</th>
+                                        <th>Otros</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <img src="../src/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                                            JOSE SANTIZ RUIZ
+                                        </td>
+                                        <td>12:50:35</td>
+                                        <td>20:50:25</td>
+                                        <td>
+                                            <small class="text-success mr-1">
+                                                <i class="fas fa-arrow-up"></i>
+                                                12%
+                                            </small>
+                                            La Semana Pasada
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="../src/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                                            CRISTIAN JEAN PEREZ
+                                        </td>
+                                        <td>12:50:35</td>
+                                        <td>20:50:25</td>
+                                        <td>
+                                            <small class="text-success mr-1">
+                                                <i class="fas fa-arrow-up"></i>
+                                                12%
+                                            </small>
+                                            La Semana Pasada
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="../src/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                                            VICTOR MANUEL GUZMAN 
+                                        </td>
+                                        <td>12:50:35</td>
+                                        <td>20:50:25</td>
+                                        <td>
+                                            <small class="text-success mr-1">
+                                                <i class="fas fa-arrow-up"></i>
+                                                12%
+                                            </small>
+                                            La Semana Pasada
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="../src/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                                            JUAN SANCHEZ RUIZ
+                                                <span class="badge bg-danger">NEW</span>
+                                        </td>
+                                        <td>12:50:35</td>
+                                        <td>20:50:25</td>
+                                        <td>
+                                            <small class="text-success mr-1">
+                                                <i class="fas fa-arrow-up"></i>
+                                                12%
+                                            </small>
+                                            La Semana Pasada
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                </div>
             </div>
-            <!-- /.card -->
-
-            <div class="card">
-              <div class="card-header border-0">
-                <h3 class="card-title">Lista de Docentes</h3>
-                <div class="card-tools">
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-bars"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
-                  <thead>
-                  <tr>
-                    
-                    <th>Nombre del Docente</th>
-                    <th>Meet</th>
-                    <th>Moodle</th>
-                    <th>Otros</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>
-                      <img src="../src/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      JOSE SANTIZ RUIZ
-                    </td>
-                    <td>12:50:35</td>
-                    <td>20:50:25</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      La Semana Pasada
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="../src/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      CRISTIAN JEAN PEREZ
-                    </td>
-                    <td>12:50:35</td>
-                    <td>20:50:25</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      La Semana Pasada
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="../src/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      VICTOR MANUEL GUZMAN 
-                    </td>
-                    <td>12:50:35</td>
-                    <td>20:50:25</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      La Semana Pasada
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="../src/dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      JUAN SANCHEZ RUIZ
-                      <span class="badge bg-danger">NEW</span>
-                    </td>
-                    <td>12:50:35</td>
-                    <td>20:50:25</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      La Semana Pasada
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col-md-6 -->
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Dedicacion</h3>
-                  <a href="javascript:void(0);">Ver Reporte</a>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">1502:25:56</span>
-                    <span>Total de Horas</span>
-                  </p>
-                  <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 33.1%
-                    </span>
-                    <span class="text-muted">Desde la Semana Pasada</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-
-                <div class="position-relative mb-4">
-                  <canvas id="sales-chart" height="200"></canvas>
-                </div>
-
-                <div class="d-flex flex-row justify-content-end">
-                  <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> Moodle
-                  </span>
-
-                  <span>
-                    <i class="fas fa-square text-gray"></i> Meet
-                  </span>
-                </div>
-              </div>
-            </div>
-            <!-- /.card -->
-
-            <div class="card">
-              <div class="card-header border-0">
-                <h3 class="card-title">Insignias</h3>
-                <div class="card-tools">
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-bars"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.col-md-6 -->
         </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
     </div>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
+    <footer class="main-footer">
     <strong>Copyright &copy; 2020-2022 <a href="http://www.codersof.com">www.codersof.com</a>.</strong>
     Todos los Derechos Reservados.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0.0
     </div>
   </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
-
 <!-- jQuery -->
 <script src="../src/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
+<!-- jQuery UI 1.11.4 -->
+<script src="../src/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
 <script src="../src/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE -->
-<script src="../src/dist/js/adminlte.js"></script>
-
-<!-- OPTIONAL SCRIPTS -->
+<!-- ChartJS -->
 <script src="../src/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="../src/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="../src/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="../src/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../src/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="../src/plugins/moment/moment.min.js"></script>
+<script src="../src/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../src/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="../src/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="../src/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../src/dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="../src/dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
 <script src="../src/dist/js/demo.js"></script>
-<script src="../src/dist/js/pages/dashboard3.js"></script>
-
-
-
 </body>
 </html>
